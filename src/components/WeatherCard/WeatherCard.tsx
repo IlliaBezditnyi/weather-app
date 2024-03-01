@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
   Box,
   Button,
@@ -7,45 +7,106 @@ import {
   CardContent,
   CardHeader,
   Divider,
+  Fade,
   IconButton,
+  Menu,
+  MenuItem,
   Typography,
   styled,
 } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 
-export const WeatherCard: FC = () => {
+interface WeatherCardProps {
+  name: string;
+  temp: number;
+  description: string;
+  humidity: number;
+  feels_like: number;
+  pressure: number;
+  onRemoveCity: () => void;
+  onRefreshClick: () => void;
+}
+
+export const WeatherCard: FC<WeatherCardProps> = ({
+  name,
+  temp,
+  description,
+  humidity,
+  feels_like,
+  pressure,
+  onRemoveCity,
+  onRefreshClick,
+}) => {
+  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  // const open = Boolean(anchorEl);
+  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
+  // const dispatch = useAppDispatch();
+  // const { city } = useAppSelector((state) => state.location.cities);
+
+  // const handleRemoveFromCities = () => {
+  //   dispatch(removeFromCities(city));
+  // };
+
   return (
     <CardContainer>
       <CardHeader
-        sx={{ alignSelf: 'flex-end', padding: 0 }}
+        sx={{
+          alignSelf: 'flex-end',
+          padding: 0,
+        }}
         action={
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          <>
+            <IconButton onClick={() => onRefreshClick()} sx={{ color: '#fff' }}>
+              <RefreshOutlinedIcon />
+            </IconButton>
+            <IconButton onClick={() => onRemoveCity()} sx={{ color: 'red' }}>
+              <DeleteOutlineOutlinedIcon />
+            </IconButton>
+            {/* <Menu
+              id="fade-menu"
+              MenuListProps={{
+                'aria-labelledby': 'fade-button',
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+            >
+              <MenuItem onClick={handleClose}>Update info</MenuItem>
+              <MenuItem onClick={handleClose}>Delete</MenuItem>
+            </Menu> */}
+          </>
         }
       />
       <CardContent sx={{ width: '100%', padding: 0, mb: 5 }}>
         <Typography fontSize="25px" gutterBottom>
-          Kyiv
+          {name}
         </Typography>
-        <Typography fontSize="100px">5&deg;</Typography>
+        <Typography fontSize="100px">{temp}&deg;</Typography>
         <Typography fontSize="16px" sx={{ mb: 10 }}>
-          Smoke
+          {description}
         </Typography>
         <WidgetContainer>
           <WidgetWrapper>
             <TitleText>Humidity</TitleText>
-            <ValueText>75%</ValueText>
+            <ValueText>{humidity}%</ValueText>
           </WidgetWrapper>
           <DividerWrapper orientation="vertical" variant="middle" flexItem />
           <WidgetWrapper>
             <TitleText>Feels like</TitleText>
-            <ValueText>5&deg;</ValueText>
+            <ValueText>{feels_like}&deg;</ValueText>
           </WidgetWrapper>
           <DividerWrapper orientation="vertical" variant="middle" flexItem />
           <WidgetWrapper>
             <TitleText>Pressure</TitleText>
-            <ValueText>1024 hPa</ValueText>
+            <ValueText>{pressure} hPa</ValueText>
           </WidgetWrapper>
         </WidgetContainer>
       </CardContent>
@@ -65,7 +126,7 @@ const CardContainer = styled(Card)(() => ({
   justifyContent: 'center',
   textAlign: 'center',
   padding: '20px 30px',
-  maxWidth: '450px',
+  width: '450px',
   backgroundColor: '#262626',
   color: '#fff',
 }));
