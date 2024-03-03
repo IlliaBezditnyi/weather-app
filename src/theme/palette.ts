@@ -12,8 +12,8 @@ export const palette: PaletteOptions = {
     dark: '#425C76',
   },
   text: {
-    primary: '#6596B9',
-    secondary: '#484848',
+    primary: '#fff',
+    secondary: '#6596B9',
     disabled: '#9fbed4',
   },
 };

@@ -115,19 +115,6 @@ const locationSlice = createSlice({
           ) {
             state.cities[i] = { ...state.cities[i], ...action.payload };
           }
-          // state.cities[i] = Object.assign(
-          //   state.cities[i],
-          //   action.payload.current,
-          // );
-          // if (
-          //   state.cities[i]['lat'] === action.payload.lat &&
-          //   state.cities[i]['lon'] === action.payload.lon
-          // ) {
-          //   state.cities[i] = Object.assign(
-          //     state.cities[i],
-          //     action.payload.current,
-          //   );
-          // }
         }
         state.loading = false;
       })

@@ -25,8 +25,9 @@ interface WeatherCardProps {
   humidity: number;
   feels_like: number;
   pressure: number;
-  onRemoveCity: () => void;
+  onRemoveClick: () => void;
   onRefreshClick: () => void;
+  onSeeMoreClick: () => void;
 }
 
 export const WeatherCard: FC<WeatherCardProps> = ({
@@ -36,8 +37,9 @@ export const WeatherCard: FC<WeatherCardProps> = ({
   humidity,
   feels_like,
   pressure,
-  onRemoveCity,
+  onRemoveClick,
   onRefreshClick,
+  onSeeMoreClick,
 }) => {
   // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   // const open = Boolean(anchorEl);
@@ -66,7 +68,7 @@ export const WeatherCard: FC<WeatherCardProps> = ({
             <IconButton onClick={() => onRefreshClick()} sx={{ color: '#fff' }}>
               <RefreshOutlinedIcon />
             </IconButton>
-            <IconButton onClick={() => onRemoveCity()} sx={{ color: 'red' }}>
+            <IconButton onClick={() => onRemoveClick()} sx={{ color: 'red' }}>
               <DeleteOutlineOutlinedIcon />
             </IconButton>
             {/* <Menu
@@ -111,7 +113,7 @@ export const WeatherCard: FC<WeatherCardProps> = ({
         </WidgetContainer>
       </CardContent>
       <CardActions>
-        <Button color="primary" size="large">
+        <Button onClick={() => onSeeMoreClick()} color="primary" size="large">
           See more
         </Button>
       </CardActions>
@@ -126,7 +128,7 @@ const CardContainer = styled(Card)(() => ({
   justifyContent: 'center',
   textAlign: 'center',
   padding: '20px 30px',
-  width: '450px',
+  minWidth: '400px',
   backgroundColor: '#262626',
   color: '#fff',
 }));
@@ -136,7 +138,8 @@ const WidgetContainer = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  border: '1px solid #fff',
+  backdropFilter: 'blur(10px)',
+  backgroundColor: 'rgba(236, 236, 236, 0.1)',
   borderRadius: '20px',
   padding: '20px',
 }));

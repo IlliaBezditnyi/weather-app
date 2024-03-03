@@ -9,9 +9,17 @@ import {
   getCityLocation,
   getCityWeather,
 } from '../../store/slices/locationSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export const Header: FC = () => {
+interface HeaderProps {
+  disabledSearch?: boolean;
+}
+
+export const Header: FC<HeaderProps> = ({ disabledSearch }) => {
   const [searchValue, setSearchValue] = useState('');
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const { lat, lon } = useAppSelector((state) => state.location.location);
@@ -51,6 +59,7 @@ export const Header: FC = () => {
           placeholder="Add a city..."
           onChange={onSearchChange}
           value={searchValue}
+          disabled={disabledSearch}
           InputProps={{
             endAdornment: (
               <IconButton color="primary" size="large" type="submit">
@@ -62,9 +71,15 @@ export const Header: FC = () => {
       </form>
 
       <ButtonWrapper>
-        <IconButton color="primary" size="large">
-          <HomeOutlinedIcon />
-        </IconButton>
+        {location.pathname === '/details' && (
+          <IconButton
+            onClick={() => navigate('/')}
+            color="primary"
+            size="large"
+          >
+            <HomeOutlinedIcon />
+          </IconButton>
+        )}
         <IconButton color="primary" size="large">
           <AccountCircleOutlinedIcon />
         </IconButton>
