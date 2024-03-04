@@ -1,20 +1,26 @@
-import { FC } from 'react';
 import { Header } from '../../components/Header/Header';
-import { Box } from '@mui/material';
-import { CitiesList } from '../../components/CitiesList/CitiesList';
+import { Box, styled } from '@mui/material';
+import { CitiesList } from '../../components/WeatherPageComponents/CitiesList/CitiesList';
+import { useAuthHook } from '../../hooks/useAuthHook';
+import { Navigate } from 'react-router-dom';
 
-export const WeatherPage: FC = () => {
-  return (
-    <Box
-      sx={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '100px',
-      }}
-    >
+export const WeatherPage = () => {
+  const { isAuth } = useAuthHook();
+
+  return isAuth ? (
+    <PageContainer>
       <Header />
       <CitiesList />
-    </Box>
+    </PageContainer>
+  ) : (
+    <Navigate to="/login"></Navigate>
   );
 };
+
+const PageContainer = styled(Box)(() => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '100px',
+  padding: '30px 100px',
+}));

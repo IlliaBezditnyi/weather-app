@@ -40,4 +40,5 @@ const CardWrapper = styled(Card)(() => ({
   padding: '20px',
   backdropFilter: 'blur(10px)',
   backgroundColor: 'rgba(236, 236, 236, 0.1)',
+  color: '#fff',
 }));

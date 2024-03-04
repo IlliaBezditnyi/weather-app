@@ -1,22 +1,17 @@
 import { FC } from 'react';
-import { Grid } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { Grid, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import { WeatherCard } from '../WeatherCard/WeatherCard';
 import {
   getCityWeather,
   removeFromCities,
-} from '../../store/slices/locationSlice';
+} from '../../../store/slices/weatherSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const CitiesList: FC = () => {
-  const cities = useAppSelector((state) => state.location.cities);
+  const cities = useAppSelector((state) => state.weather.cities);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  // console.log(`Cities: ${cities.length}`);
-  // for (let i = 0; i < cities.length; i++) {
-  //   console.log(cities[i]);
-  // }
 
   return (
     <Grid
@@ -28,6 +23,16 @@ export const CitiesList: FC = () => {
       columnGap={3}
       rowGap={3}
     >
+      {cities.length === 0 && (
+        <Typography
+          fontSize="24px"
+          sx={{
+            color: '#000',
+          }}
+        >
+          Please, add your city to the list...
+        </Typography>
+      )}
       {cities.map((city: any, index: number) => (
         <WeatherCard
           key={index}

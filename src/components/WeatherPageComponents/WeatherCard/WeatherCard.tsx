@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import {
   Box,
   Button,
@@ -7,14 +7,10 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Fade,
   IconButton,
-  Menu,
-  MenuItem,
   Typography,
   styled,
 } from '@mui/material';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 
@@ -41,21 +37,6 @@ export const WeatherCard: FC<WeatherCardProps> = ({
   onRefreshClick,
   onSeeMoreClick,
 }) => {
-  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const open = Boolean(anchorEl);
-  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
-  // const dispatch = useAppDispatch();
-  // const { city } = useAppSelector((state) => state.location.cities);
-
-  // const handleRemoveFromCities = () => {
-  //   dispatch(removeFromCities(city));
-  // };
-
   return (
     <CardContainer>
       <CardHeader
@@ -71,19 +52,6 @@ export const WeatherCard: FC<WeatherCardProps> = ({
             <IconButton onClick={() => onRemoveClick()} sx={{ color: 'red' }}>
               <DeleteOutlineOutlinedIcon />
             </IconButton>
-            {/* <Menu
-              id="fade-menu"
-              MenuListProps={{
-                'aria-labelledby': 'fade-button',
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              TransitionComponent={Fade}
-            >
-              <MenuItem onClick={handleClose}>Update info</MenuItem>
-              <MenuItem onClick={handleClose}>Delete</MenuItem>
-            </Menu> */}
           </>
         }
       />

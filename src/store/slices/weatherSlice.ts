@@ -11,6 +11,7 @@ interface LocationData {
   lon: number | any;
 }
 
+// Getting lat and lot of city.
 export const getCityLocation = createAsyncThunk<
   LocationData,
   string,
@@ -21,25 +22,16 @@ export const getCityLocation = createAsyncThunk<
       `${GEO_URL}/direct?q=${city}&limit=1&appid=${KEY}`,
     );
 
-    // console.log(request.data[0]);
     return request.data[0];
   } catch (error: any) {
     return rejectWithValue(error.request.data);
   }
 });
 
-// interface WeatherData {
-//   current: any;
-// }
-
-interface QueryParams {
-  lat: number | any;
-  lon: number | any;
-}
-
+// Getting weather forecast by lat and lon.
 export const getCityWeather = createAsyncThunk<
   any,
-  any,
+  any[],
   { rejectValue: string }
 >('get/weather', async ([lat, lon], { rejectWithValue }) => {
   try {
@@ -47,15 +39,14 @@ export const getCityWeather = createAsyncThunk<
       `${WEATHER_URL}/onecall?lat=${lat}&lon=${lon}&appid=${KEY}&units=metric`,
     );
 
-    console.log(request.data);
     return request.data;
   } catch (error: any) {
     return rejectWithValue(error.request.data);
   }
 });
 
-const locationSlice = createSlice({
-  name: 'location',
+const weatherSlice = createSlice({
+  name: 'weather',
   initialState: {
     cities: [] as any,
     location: {
@@ -63,17 +54,12 @@ const locationSlice = createSlice({
       lat: null,
       lon: null,
     },
-    // weather: {
-    //   lat: null,
-    //   lon: null,
-    //   current: {
-    //     temp: 0,
-    //   },
-    // },
+    weather: {},
     loading: false,
     error: '',
   },
   reducers: {
+    // Pure function to remove City from cities list on button click.
     removeFromCities(state, action) {
       state.cities = state.cities.filter((city: any) => {
         return city.name !== action.payload;
@@ -96,7 +82,7 @@ const locationSlice = createSlice({
         if (action.error.message) {
           state.error = action.error.message;
         } else {
-          state.error = 'Error has occured';
+          state.error = 'Error has occured!';
         }
       });
 
@@ -106,8 +92,7 @@ const locationSlice = createSlice({
         state.error = '';
       })
       .addCase(getCityWeather.fulfilled, (state, action) => {
-        // state.weather = action.payload;
-        // state.cities.push(action.payload);
+        state.weather = action.payload;
         for (let i = 0; i < state.cities.length; i++) {
           if (
             state.cities[i]['lat'] == state.location.lat &&
@@ -129,6 +114,6 @@ const locationSlice = createSlice({
   },
 });
 
-export default locationSlice.reducer;
+export default weatherSlice.reducer;
 
-export const { removeFromCities } = locationSlice.actions;
+export const { removeFromCities } = weatherSlice.actions;

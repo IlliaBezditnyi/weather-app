@@ -12,7 +12,7 @@ dayjs.extend(timezone);
 
 interface HourlyForecastProps {
   hourlyForecast: any[];
-  timezone: any;
+  timezone: string;
 }
 
 export const HourlyForecast: FC<HourlyForecastProps> = ({

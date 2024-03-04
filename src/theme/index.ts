@@ -1,7 +1,5 @@
 import { type ThemeOptions } from '@mui/material';
 
-import { palette } from '../theme/palette';
-
 export const themeOptions: ThemeOptions = {
   components: {
     MuiCssBaseline: {
@@ -22,13 +20,13 @@ export const themeOptions: ThemeOptions = {
         body: {
           width: '100%',
           height: '100%',
-          padding: '30px 100px',
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
+          padding: 0,
           borderRadius: 30,
           boxShadow: 'none',
         },
@@ -37,15 +35,23 @@ export const themeOptions: ThemeOptions = {
     MuiTextField: {
       styleOverrides: {
         root: {
-          minWidth: '800px',
           input: {
-            color: '#000',
             padding: '16px 32px',
           },
           '& fieldset': {
             borderRadius: 30,
             borderColor: '#6596B9',
-            color: '#000',
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          input: {},
+          '& fieldset': {
+            borderRadius: 30,
+            borderColor: '#6596B9',
           },
         },
       },
@@ -59,5 +65,4 @@ export const themeOptions: ThemeOptions = {
       },
     },
   },
-  palette,
 };
