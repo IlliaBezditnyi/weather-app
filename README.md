@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - React Hook Forms
 - React Router
 - Material UI
-- Rest API
+- Rest API (openweathermap.api)
 
 # Get started:
 - Fork and clone this repository
